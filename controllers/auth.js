@@ -16,7 +16,8 @@ const login = async (req, res = response) => {
         if (!usuarioDB) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Credenciales inválidas (email)'
+                // msg: 'Credenciales inválidas (email)'
+                msg: 'Credenciales inválidas'
             });
         }
 
@@ -26,7 +27,8 @@ const login = async (req, res = response) => {
         if (!validPassword) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Credenciales inválidas (contraseña)'
+                // msg: 'Credenciales inválidas (contraseña)'
+                msg: 'Credenciales inválidas'
             })
         }
 
@@ -110,11 +112,14 @@ const renewToken = async (req, res = response) => {
 
     // generarTOKEN - JWT
 
+    const usuario = await  Usuario.findById(uid);
+
     const token = await generarJWT(uid);
 
     res.json({
         ok: true,
-        token
+        token,
+        usuario
     })
 
 }
