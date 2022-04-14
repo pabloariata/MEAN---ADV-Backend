@@ -17,6 +17,34 @@ const getMedicos = async (req = request, res = response) => {
 
 }
 
+
+const getMedicoById = async (req = request, res = response) => {
+
+    // const hospitales = await Hospital.find();
+    // Para traer en el usuario, ademas del id, los campos que queramos
+
+    const id = req.params.id;
+
+    try {
+        const medico = await Medico.findById(id)
+                                        .populate('usuario', 'nombre img')
+                                        .populate('hospital', 'nombre img');
+    
+        res.json({
+            ok: true,
+            medico
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
+
+}
+
 const crearMedico = async (req = request, res = response) => {
 
     const uid = req.uid;
@@ -131,6 +159,7 @@ const borrarMedico = async (req = request, res = response) => {
 
 module.exports = {
     getMedicos,
+    getMedicoById,
     crearMedico,
     actualizarMedico,
     borrarMedico
