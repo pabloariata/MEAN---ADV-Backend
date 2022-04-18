@@ -9,6 +9,8 @@ const getTodo = async (req = request, res = response) => {
     const busqueda = req.params.busqueda;
     const regexp = new RegExp(busqueda, 'i'); // expresion regular para parte de la palabra, mayusculas y minisculas indistintas
 
+    console.log('entre');
+
     // const usuarios = await Usuario.find({ 
     //     nombre: regexp
     //  })
